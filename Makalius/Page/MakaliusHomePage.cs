@@ -20,7 +20,7 @@ namespace Makalius.Page
 
         public void CloseCookies()
         {
-            GetWait().Until(ExpectedConditions.ElementIsVisible(By.Id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")));
+            GetWait().Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[aria-label='dismiss cookie message']")));
             cookieButton.Click();
         }
     }
