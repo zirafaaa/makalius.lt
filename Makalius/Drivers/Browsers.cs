@@ -6,9 +6,7 @@ namespace Makalius.Drivers
     {
         Chrome,
         Firefox,
-        Egde,
-        IE,
-        Opera,
-        Safari
+        IncognitoChrome,
+        ChromeWithOptions
     }
 }

@@ -17,6 +17,15 @@ namespace Makalius.Drivers
         {
             return GetDriver(Browsers.Firefox);
         }
+        public static IWebDriver GetIncognitoChrome()
+        {
+            return GetDriver(Browsers.IncognitoChrome);
+        }
+
+        public static IWebDriver GetChromeWithSpecOptions()
+        {
+            return GetDriver(Browsers.ChromeWithOptions);
+        }
 
         private static IWebDriver GetDriver(Browsers browserName)
         {
@@ -30,12 +39,31 @@ namespace Makalius.Drivers
                 case Browsers.Chrome:
                     driver = new ChromeDriver();
                     break;
+                case Browsers.IncognitoChrome:
+                    driver = GetChromeWithIncognitoOptions();
+                    break;
+                case Browsers.ChromeWithOptions:
+                    driver = GetChromeWithOptions();
+                    break;
             }
 
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             return driver;
+        }
+        private static IWebDriver GetChromeWithIncognitoOptions()
+        {
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("incognito");
+            return new ChromeDriver(options);
+        }
+
+        private static IWebDriver GetChromeWithOptions()
+        {
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--disable-notifications");
+            return new ChromeDriver(options);
         }
     }
 }

@@ -1,15 +1,14 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-
+using System;
 
 namespace Makalius.Page
 {
     public class MakaliusHomePage : BasePage
     {
         private const string PageAddress = "https://www.makalius.lt/";
-        private IWebElement cookieButton => Driver.FindElement(By.CssSelector(".cc-compliance"));
-        private IWebElement searchField => Driver.FindElement(By.Id("small-searchterms"));
-        private IWebElement searchIcon => Driver.FindElement(By.CssSelector(".button-1.search-box-button"));
+        private IWebElement egzotinesButton => Driver.FindElement(By.CssSelector(".hidden-md:nth-child(7) a"));
+
+       
         public MakaliusHomePage(IWebDriver webdriver) : base(webdriver) { }
 
         public void NavigateToPage()
@@ -18,10 +17,19 @@ namespace Makalius.Page
                 Driver.Url = PageAddress;
         }
 
-        public void CloseCookies()
+        public void AcceptCookies()
         {
-            GetWait().Until(ExpectedConditions.ElementIsVisible(By.CssSelector("a[aria-label='dismiss cookie message']")));
-            cookieButton.Click();
+            Cookie myCookie = new Cookie("cookieconsent_status",
+                "dismiss",
+                ".makalius.lt",
+                "/",
+                DateTime.Now.AddMonths(24));
+            Driver.Manage().Cookies.AddCookie(myCookie);
+            Driver.Navigate().Refresh();
+        }
+        public void ClickOnEgzotinesButton()
+        {
+            egzotinesButton.Click();
         }
     }
 }

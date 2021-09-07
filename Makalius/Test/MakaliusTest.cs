@@ -10,10 +10,12 @@ namespace Makalius.Test
     public class MakaliusTest : BaseTest
     {
         [Test]
-        public static void TestMollersPrice()
+        public static void TestMakalius()
         {
             _makaliusHomePage.NavigateToPage();
-            _makaliusHomePage.CloseCookies();
+            _makaliusHomePage.AcceptCookies();
+            _makaliusHomePage.ClickOnEgzotinesButton();
+            _egzotinesKelionesResultPage.OrderBySausisTravel();
 
         }
     }
