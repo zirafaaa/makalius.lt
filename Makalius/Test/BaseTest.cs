@@ -18,7 +18,13 @@ namespace Makalius.Test
 
         public static MakaliusHomePage _makaliusHomePage;
         public static EgzotinesKelionesResultPage _egzotinesKelionesResultPage;
-        protected static ExtentReportsHelper extent;
+        public static SearchResultPage _searchResultPage;
+        public static Iki100eurPage _iki100EurPage;
+        public static BuyTravelFor2Until200eurPage _buyTravelFor2Until200EurPage;
+        public static HotelSearchPage _hotelSearchPage;
+        public static HotelPage _hotelPage;
+     
+
 
 
 
@@ -26,32 +32,33 @@ namespace Makalius.Test
         public static void OneTimeSetUp()
         {
             driver = CustomDriver.GetChromeWithSpecOptions();
-            extent = new ExtentReportsHelper();
+            
             _makaliusHomePage = new MakaliusHomePage(driver);
-            _egzotinesKelionesResultPage = new EgzotinesKelionesResultPage(driver);                 
+            _egzotinesKelionesResultPage = new EgzotinesKelionesResultPage(driver);
+            _searchResultPage = new SearchResultPage(driver);
+            _iki100EurPage = new Iki100eurPage(driver);
+            _buyTravelFor2Until200EurPage = new BuyTravelFor2Until200eurPage(driver);
+            _hotelSearchPage = new HotelSearchPage(driver);
+            _hotelPage = new HotelPage(driver);
 
         }
-        [SetUp]
-        public static void SetUp()
-        {
-            extent.CreateTest(TestContext.CurrentContext.Test.Name);
-        }
+       
 
         [TearDown]
-        public static void TearDown()
+        public static void Screenshots()
         {
             if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
             {
                 MyScreenshot.TakeScreenshot(driver);
             }
-            MyReport.GenerateReport(driver, extent);
+            
         }
 
-        //[OneTimeTearDown]
-        //public static void TearDown()
-        //{
-        //extent.Close();
-        //    driver.Quit();
-        //}
+        [OneTimeTearDown]
+        public static void TearDown()
+        {
+        
+          //  driver.Quit();
+        }
     }
 }
